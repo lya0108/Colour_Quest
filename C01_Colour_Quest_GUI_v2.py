@@ -81,7 +81,7 @@ class Play:
         self.instructions_label = Label(self.quest_frame, text=instructions, wraplength=350, justify="left")
         self.instructions_label.grid(row=1)
 
-        # button_colours_list = self.get_round_colours()
+        button_colours_list = self.get_round_colours()
         self.button_colours_list = []
 
         # create colour buttons
@@ -113,6 +113,9 @@ class Play:
         self.next_button = Button(self.rounds_frame, text="Next Round", fg="#ffffff", bg="#008bfc", font=("Arial", 11, "bold"), width=10, state=DISABLED)
         self.next_button.grid(row=0, column=1)
 
+        # at start, get 'new round'
+        self.new_round()
+
         # large label to show overall game results
         self.game_results_label = Label(self.quest_frame, text="Game Totals: User: - \t Computer: - ", width=42, bg="#fff2cc", font=("Arial", 10), padx=10, pady=10)
         self.game_results_label.grid(row=5, pady=5)
@@ -126,8 +129,15 @@ class Play:
             ["#808080", "Start Over", "start over"],
             ]
 
+        # so that the text of the 'start over' button can easily be configured when the game is over
+        self.control_button_ref = []
+
+
         for item in range(0, 3):
             self.make_control_button = Button(self.control_frame, fg="#ffffff", bg=control_buttons[item][0], text=control_buttons[item][1], width=11, font=("Arial", "12", "bold"), command=lambda i=item: self.to_do(control_buttons[i][2]))
+            
+            self.control_button_ref.append(self.make_control_button)
+            
             self.make_control_button.grid(row=0, column=item, padx=5, pady=5)
 
     # retrieve colours from csv file
